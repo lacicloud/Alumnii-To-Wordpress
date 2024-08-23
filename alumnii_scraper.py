@@ -8,8 +8,11 @@ import re
 from dateutil import parser
 
 news_pattern = re.compile(r'^/news/\d{1,3}/$') #news pattern /news/123 etc 
+total_pages = 27 #of news, put your own 
 date_pattern = re.compile(r'([A-Z][a-z]+\.? \d{1,2}, \d{4})')
 base_url = "https://alumnieuropae.org" #your URL
+post_author = 1 #set your own
+post_category = 1 #set your own
 
 # Function to get the HTML content of a page
 def get_html(url):
@@ -56,9 +59,8 @@ def scrape_sub_pages(base_url, total_pages, output_file):
 
     print(f"Saved {len(all_sub_page_urls)} sub-page URLs to {output_file}")
 
-# Define base URL and total pages
+# Define news base URL 
 base_url_news = base_url + "/news/"
-total_pages = 27 #hardcoded
 output_file = 'news_urls.txt'
 
 # Run the scraper
@@ -179,8 +181,8 @@ def process_url(url):
         'post_content': content,
         'post_date': published_date_sql,
         'post_status': 'publish',
-        'post_category': 'Article',
-        'post_author': 'AE',
+        'post_category': post_category,
+        'post_author': post_author,
         'post_img_dir': wp_image_path,
         'original_url': url
     }
